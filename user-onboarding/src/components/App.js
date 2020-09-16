@@ -1,5 +1,6 @@
 //Import dependencies
 import React, { useState, useEffect } from 'react'
+import * as yup from 'yup'
 
 //Import components
 import Form from './Form'
@@ -29,6 +30,7 @@ export default function App() {
   const [disabled, setDisabled] = useState(true)
 
   const updateForm = (name, value) => {
+    validateInput(name, value)
     setFormValues({...formValues, [name]: value})
   }
 
@@ -41,6 +43,18 @@ export default function App() {
     }
     setUsers([...users, newUser])
     setFormValues(initialFormValues)
+  }
+
+  const validateInput = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(valid => {
+        setFormErrors({...formErrors, [name]: ''})
+      })
+      .catch(error => {
+        setFormErrors({...formErrors, [name]: error.errors[0]})
+      })
   }
 
   useEffect(() => {
@@ -61,6 +75,7 @@ export default function App() {
         updateForm={updateForm}
         submitForm={submitForm}
         disabled={disabled}
+        formErrors={formErrors}
       />
 
       {

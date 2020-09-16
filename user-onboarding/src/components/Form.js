@@ -3,7 +3,7 @@ import React from 'react'
 
 //Form Component
 export default function Form(props) {
-    const { formValues, updateForm, submitForm, disabled } = props
+    const { formValues, updateForm, submitForm, disabled, formErrors } = props
 
     const onChange = (event) => {
         const { name, value, type, checked } = event.target
@@ -19,6 +19,7 @@ export default function Form(props) {
     return (
         <div className='container'>
             <h2>Form</h2>
+
             <form onSubmit={onSubmit}>
 
                 <label>
@@ -32,6 +33,8 @@ export default function Form(props) {
                     />
                 </label>
 
+                {formErrors.name ? <p style={{color: 'red'}}>{formErrors.name}</p> : null}
+
                 <label>
                     Email
                     <input 
@@ -42,6 +45,8 @@ export default function Form(props) {
                         onChange={onChange}
                     />
                 </label>
+
+                {formErrors.email ? <p style={{color: 'red'}}>{formErrors.email}</p> : null}
 
                 <label>
                     Password
@@ -54,6 +59,8 @@ export default function Form(props) {
                     />
                 </label>
 
+                {formErrors.password ? <p style={{color: 'red'}}>{formErrors.password}</p> : null}
+
                 <label>
                     Terms of Service
                     <input 
@@ -63,6 +70,8 @@ export default function Form(props) {
                         onChange={onChange}
                     />
                 </label>
+
+                {formErrors.terms ? <p style={{color: 'red'}}>{formErrors.terms}</p> : null}
 
                 <button disabled={disabled}>Submit</button>
             </form>
