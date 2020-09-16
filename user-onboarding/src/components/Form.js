@@ -1,11 +1,9 @@
 //Import dependencies
 import React from 'react'
 
-
-
 //Form Component
 export default function Form(props) {
-    const { formValues, updateForm } = props
+    const { formValues, updateForm, submitForm } = props
 
     const onChange = (event) => {
         const { name, value, type, checked } = event.target
@@ -13,8 +11,9 @@ export default function Form(props) {
         updateForm(name, valueToUse)
     }
     
-    const onSubmit = () => {
-        return
+    const onSubmit = (event) => {
+        event.preventDefault()
+        submitForm()
     }
 
     return (
@@ -65,7 +64,7 @@ export default function Form(props) {
                     />
                 </label>
 
-
+                <button>Submit</button>
             </form>
         </div>
     )

@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react'
 
 //Import components
-import Form from './Form.js'
+import Form from './Form'
+import Users from './Users'
 
 const initialFormValues = {
   name: '',
@@ -21,13 +22,31 @@ export default function App() {
     setFormValues({...formValues, [name]: value})
   }
 
+  const submitForm = () => {
+    const newUser = {
+      name: formValues.name,
+      email: formValues.email,
+      password: formValues.password,
+      terms: formValues.terms,
+    }
+    setUsers([...users, newUser])
+    setFormValues(initialFormValues)
+  }
+
   return (
     <div className='container'>
       App
       <Form 
         formValues={formValues}
         updateForm={updateForm}
+        submitForm={submitForm}
       />
+
+      {
+        users.map(user => 
+          <Users user={user}/>
+        )
+      }
     </div>
   )
 }
