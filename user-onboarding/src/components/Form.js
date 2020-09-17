@@ -34,10 +34,11 @@ export default function Form(props) {
                         value={formValues.name}
                         placeholder='Name'
                         onChange={onChange}
+                        id='name-input'
                     />
                 </label>
 
-                {formErrors.name ? <p style={{color: 'red'}}>{formErrors.name}</p> : null}
+                {formErrors.name ? <p style={{color: 'red'}} id='name-error'>{formErrors.name}</p> : null}
 
                 <label>
                     Email
@@ -47,10 +48,11 @@ export default function Form(props) {
                         value={formValues.email}
                         placeholder='email'
                         onChange={onChange}
+                        id='email-input'
                     />
                 </label>
 
-                {formErrors.email ? <p style={{color: 'red'}}>{formErrors.email}</p> : null}
+                {formErrors.email ? <p style={{color: 'red'}} id='email-error'>{formErrors.email}</p> : null}
 
                 <label>
                     Password
@@ -60,10 +62,11 @@ export default function Form(props) {
                         value={formValues.password}
                         placeholder='password'
                         onChange={onChange}
+                        id='password-input'
                     />
                 </label>
 
-                {formErrors.password ? <p style={{color: 'red'}}>{formErrors.password}</p> : null}
+                {formErrors.password ? <p style={{color: 'red'}} id='password-error'>{formErrors.password}</p> : null}
 
                 <label>
                     Terms of Service
@@ -72,14 +75,15 @@ export default function Form(props) {
                         name='terms'
                         checked={formValues.terms}
                         onChange={onChange}
+                        id='terms-input'
                     />
                 </label>
 
-                {formErrors.terms ? <p style={{color: 'red'}}>{formErrors.terms}</p> : null}
+                {formErrors.terms ? <p style={{color: 'red'}} id='terms-error'>{formErrors.terms}</p> : null}
 
-                <button disabled={disabled} className={disabled ? 'disabled' : 'enabled'}>Submit</button>
+                <button disabled={disabled} className={disabled ? 'disabled' : 'enabled'} id='submit-button'>Submit</button>
 
-                { formErrors.name || formErrors.email || formErrors.password || formErrors.terms ? <p style={{color: 'red'}}>Some fields are missing or incomplete</p> : null}
+                { formErrors.name || formErrors.email || formErrors.password || formErrors.terms ? <p style={{color: 'red'}} id='submit-error'>Some fields are missing or incomplete</p> : null}
 
             </form>
         </div>
