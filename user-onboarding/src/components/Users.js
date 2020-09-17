@@ -3,8 +3,10 @@ import React from 'react'
 
 //Users component
 export default function Users(props) {
+    //Deconstruct props
     const { user } = props
     
+    //Return user
     return (
         <div className='container user'>
             <h1>{`Name: ${user.name}`}</h1>

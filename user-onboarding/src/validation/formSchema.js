@@ -1,6 +1,7 @@
 //Import dependencies
 import * as yup from 'yup'
 
+//Schema object
 export default yup.object().shape({
     name: yup
         .string()
