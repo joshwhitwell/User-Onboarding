@@ -1,6 +1,7 @@
 //Import dependencies
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
+import axios from 'axios'
 
 //Import components
 import Form from './Form'
@@ -41,8 +42,7 @@ export default function App() {
       password: formValues.password,
       terms: formValues.terms,
     }
-    setUsers([...users, newUser])
-    setFormValues(initialFormValues)
+    postUser(newUser)
   }
 
   const validateInput = (name, value) => {
@@ -54,6 +54,19 @@ export default function App() {
       })
       .catch(error => {
         setFormErrors({...formErrors, [name]: error.errors[0]})
+      })
+  }
+
+  const postUser = (newUser) => {
+    axios.post('https://reqres.in/api/users', newUser)
+      .then(response => {
+        setUsers([...users, response.data])
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(() => {
+        setFormValues(initialFormValues)
       })
   }
 
@@ -80,7 +93,7 @@ export default function App() {
 
       {
         users.map(user => 
-          <Users user={user}/>
+          <Users key={user.id} user={user}/>
         )
       }
     </div>
