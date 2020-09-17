@@ -8,6 +8,7 @@ import Form from './Form'
 import Users from './Users'
 import schema from '../validation/formSchema'
 
+//Form state initial data
 const initialFormValues = {
   name: '',
   email: '',
@@ -15,6 +16,7 @@ const initialFormValues = {
   terms: false,
 }
 
+//Error state initial data
 const initialFormErrors = {
   name: '',
   email: '',
@@ -31,6 +33,7 @@ export default function App() {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(true)
 
+  //Mock get request
   // const getUsers = () => {
   //   axios.get('https://reqres.in/api/users')
   //     .then(response => {
@@ -41,11 +44,13 @@ export default function App() {
   //     })
   // }
 
+  //Form updater called onChange in Form.js
   const updateForm = (name, value) => {
     validateInput(name, value)
     setFormValues({...formValues, [name]: value})
   }
 
+  //Form submitter called onSubmit in Form.js
   const submitForm = () => {
     const newUser = {
       name: formValues.name.trim(),
@@ -56,6 +61,7 @@ export default function App() {
     postUser(newUser)
   }
 
+  //Input validator called in updateForm in App.js
   const validateInput = (name, value) => {
     yup
       .reach(schema, name)
@@ -68,6 +74,7 @@ export default function App() {
       })
   }
 
+  //Post request helper called in submitForm in App.js
   const postUser = (newUser) => {
     axios.post('https://reqres.in/api/users', newUser)
       .then(response => {
@@ -82,6 +89,9 @@ export default function App() {
       })
   }
 
+  //Form validator imported from formSchema.js
+  //Called on change to formValues state
+  //On success sets disabled state to false
   useEffect(() => {
     schema.isValid(formValues)
       .then(valid => {
@@ -92,13 +102,14 @@ export default function App() {
       })
   }, [formValues])
 
+  //Mock get users side effect
   // useEffect(() => {
   //   getUsers()
   // }, [])
 
+  //Return App
   return (
     <div className='container'>
-      App
       <Form 
         formValues={formValues}
         updateForm={updateForm}
@@ -106,9 +117,14 @@ export default function App() {
         disabled={disabled}
         formErrors={formErrors}
       />
-      <div style={{overflow: 'auto'}}>
-        <pre>{JSON.stringify(post)}</pre>
-      </div>
+      {
+        post ?
+          <div style={{ overflow: 'auto' }}>
+            <h3>Post Response</h3>
+            <pre>{JSON.stringify(post)}</pre>
+          </div>
+          : null
+      }
       {
         users.map(user => 
           <Users key={user.id} user={user}/>

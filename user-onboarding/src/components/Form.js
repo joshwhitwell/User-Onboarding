@@ -3,19 +3,23 @@ import React from 'react'
 
 //Form Component
 export default function Form(props) {
+    //Deconstruct props
     const { formValues, updateForm, submitForm, disabled, formErrors } = props
 
+    //Input field event handler
     const onChange = (event) => {
         const { name, value, type, checked } = event.target
         const valueToUse = type === 'checkbox' ? checked : value 
         updateForm(name, valueToUse)
     }
     
+    //Form submit event handler
     const onSubmit = (event) => {
         event.preventDefault()
         submitForm()
     }
 
+    //Return Form
     return (
         <div className='container'>
             <h2>Form</h2>
@@ -73,7 +77,10 @@ export default function Form(props) {
 
                 {formErrors.terms ? <p style={{color: 'red'}}>{formErrors.terms}</p> : null}
 
-                <button disabled={disabled}>Submit</button>
+                <button disabled={disabled} className={disabled ? 'disabled' : 'enabled'}>Submit</button>
+
+                { formErrors.name || formErrors.email || formErrors.password || formErrors.terms ? <p style={{color: 'red'}}>Some fields are missing or incomplete</p> : null}
+
             </form>
         </div>
     )

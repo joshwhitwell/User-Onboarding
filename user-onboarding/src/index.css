@@ -19,10 +19,6 @@ body {
   margin-bottom: 24px;
 }
 
-h1, h2, h3, h4 {
-  color: royalblue;
-}
-
 h1 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
@@ -44,13 +40,28 @@ input, select, button {
   margin: 8px 8px 8px 0;
 }
 
-button {
+.disabled {
   color: crimson;
   background-color: white;
   border: 1px solid crimson;
 }
 
+.enabled {
+  color: seagreen;
+  background-color: white;
+  border: 1px solid seagreen;
+}
+
+.enabled:hover {
+  font-weight: bold;
+  border-width: 2px;
+}
+
 .submit {
   display: flex;
   justify-content: flex-end;
+}
+
+.user {
+  margin-top: 24px;
 }
