@@ -133,4 +133,70 @@ describe('User Onboarding Form', () => {
             .should('exist')
             .contains('Must accept terms and conditions')
     })
+
+    //Submit button test
+    it('submit button test', () => {
+        getSubmitButton()
+            .should('be.disabled')//is disabled on start
+        getSubmitButtonError()
+            .should('exist')//error message visible
+
+        //test name
+        getName()
+            .type(testName)//type name
+        getSubmitButton()
+            .should('be.disabled')//is disabled on name input
+        getSubmitButtonError()
+            .should('exist')//error message visible
+        getName()
+            .clear()//clear name
+
+        //test email
+        getEmail()
+            .type(testEmail)//type email
+        getSubmitButton()
+            .should('be.disabled')//is disabled on email input
+        getSubmitButtonError()
+            .should('exist')//error message visible
+        getEmail()
+            .clear()//clear email
+
+        //test password
+        getPassword()
+            .type(testPassword)//type password
+        getSubmitButton()
+            .should('be.disabled')//is disabled on password input
+        getSubmitButtonError()
+            .should('exist')//error message visible
+        getPassword()
+            .clear()//clear password
+        
+        //test terms
+        getTerms()
+            .click()//click terms
+        getSubmitButton()
+            .should('be.disabled')//is disabled on click
+        getSubmitButtonError()
+            .should('exist')//error message visible
+        
+        //test all
+        getName()
+            .type(testName)//type name
+        getEmail()
+            .type(testEmail)//type email
+        getPassword()
+            .type(testPassword)//type password
+        getSubmitButton()
+            .should('not.be.disabled')//is enabled with all fields
+        getSubmitButtonError()
+            .should('not.exist')//error message not visible
+        
+        //submit
+        getSubmitButton()
+            .click()
+        cy.get('[style="overflow: auto;"]')
+            .should('be.visible')
+        cy.get('.user')
+            .should('be.visible')
+    })
 })

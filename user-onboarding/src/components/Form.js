@@ -83,7 +83,7 @@ export default function Form(props) {
 
                 <button disabled={disabled} className={disabled ? 'disabled' : 'enabled'} id='submit-button'>Submit</button>
 
-                { formErrors.name || formErrors.email || formErrors.password || formErrors.terms ? <p style={{color: 'red'}} id='submit-error'>Some fields are missing or incomplete</p> : null}
+                { disabled ? <p style={{color: 'red'}} id='submit-error'>Some fields are missing or incomplete</p> : null}
 
             </form>
         </div>
