@@ -26,9 +26,20 @@ const initialFormErrors = {
 export default function App() {
   //Initialize state
   const [users, setUsers] = useState([])
+  const [post, setPost] = useState()
   const [formValues, setFormValues] = useState(initialFormValues)
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(true)
+
+  // const getUsers = () => {
+  //   axios.get('https://reqres.in/api/users')
+  //     .then(response => {
+  //       setUsers(response.data)
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
+  // }
 
   const updateForm = (name, value) => {
     validateInput(name, value)
@@ -49,7 +60,7 @@ export default function App() {
     yup
       .reach(schema, name)
       .validate(value)
-      .then(valid => {
+      .then(() => {
         setFormErrors({...formErrors, [name]: ''})
       })
       .catch(error => {
@@ -61,6 +72,7 @@ export default function App() {
     axios.post('https://reqres.in/api/users', newUser)
       .then(response => {
         setUsers([...users, response.data])
+        setPost(response.data)
       })
       .catch(error => {
         console.log(error)
@@ -80,6 +92,10 @@ export default function App() {
       })
   }, [formValues])
 
+  // useEffect(() => {
+  //   getUsers()
+  // }, [])
+
   return (
     <div className='container'>
       App
@@ -90,7 +106,9 @@ export default function App() {
         disabled={disabled}
         formErrors={formErrors}
       />
-
+      <div style={{overflow: 'auto'}}>
+        <pre>{JSON.stringify(post)}</pre>
+      </div>
       {
         users.map(user => 
           <Users key={user.id} user={user}/>
